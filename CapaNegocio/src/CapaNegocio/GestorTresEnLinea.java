@@ -18,23 +18,24 @@ import java.util.ArrayList;
  *
  * @author Oscar Fierro <omfierro@espe.edu.ec>
  */
-public class GestorTresEnLinea extends UnicastRemoteObject implements Serializable,Remote {
+public class GestorTresEnLinea extends UnicastRemoteObject  implements Serializable,InGestor {
 
     private static GestorTresEnLinea gesTresEnLinea;
     private static TresEnLinea objTresEnLinea = new TresEnLinea();
     private static ArrayList<InTresEnLinea> obsTresEnLinea;
     private static int jugador;
 
-    public GestorTresEnLinea() throws RemoteException{
-    }
-
+  
+public GestorTresEnLinea()throws RemoteException {
+    getGestor();
+}
     private void NotificaCambio() {
         obsTresEnLinea.forEach((objTL) -> {
             objTL.Actualiza();
         });
     }
 
-    public void suscribir(InTresEnLinea obsTresL) {
+    public void suscribir(InTresEnLinea obsTresL)  {
         if (obsTresEnLinea == null) {
             obsTresEnLinea = new ArrayList<>();
         }

@@ -9,7 +9,7 @@ import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import CapaNegocio.GestorTresEnLinea;
+import CapaNegocio.*;
 import java.rmi.Remote;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -23,8 +23,11 @@ public class Servidor implements Remote {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws RemoteException, MalformedURLException{
+        GestorTresEnLinea obj = new GestorTresEnLinea();
+        InGestor stub = (InGestor) UnicastRemoteObject.exportObject(obj, 0);
         Registry reg = LocateRegistry.createRegistry(1099);
-        reg.rebind("Server", new GestorTresEnLinea());
+        reg.rebind("ServerTresEnLinea", stub);
+        System.out.println(reg.toString());
         System.out.println("Servidor ON");
         System.out.println("Atendiendo las peticiones...");
         System.out.println("Pulse Enter para salir...");

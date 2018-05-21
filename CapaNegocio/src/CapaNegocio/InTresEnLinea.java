@@ -5,10 +5,13 @@
  */
 package CapaNegocio;
 
+import java.rmi.Remote;
+
 /**
  *
  * @author Oscar Fierro <omfierro@espe.edu.ec>
  */
 public interface InTresEnLinea {
     void Actualiza();
+    
 }

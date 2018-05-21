@@ -10,6 +10,8 @@ import java.io.Serializable;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import CapaNegocio.*;
+import java.rmi.NotBoundException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
@@ -17,9 +19,9 @@ import java.util.Scanner;
  *
  * @author Mela
  */
-public class TresEnLineaMain extends UnicastRemoteObject implements  Serializable,InTresEnLinea {
+public class TresEnLineaMain extends UnicastRemoteObject implements  InTresEnLinea {
 
-   GestorTresEnLinea gesTresEnLinea ;
+   InGestor gesTresEnLinea ;
    @Override
     public void Actualiza()
         {
@@ -29,24 +31,25 @@ public class TresEnLineaMain extends UnicastRemoteObject implements  Serializabl
 
         }
      
-        public TresEnLineaMain() throws RemoteException 
+        public TresEnLineaMain() throws RemoteException, NotBoundException 
         {
-            try{
-            Registry registry = LocateRegistry.getRegistry("localhost");
-                System.out.println(registry.toString());
-            gesTresEnLinea = (GestorTresEnLinea) registry.lookup("Server");    
-            gesTresEnLinea.suscribir(this);
+           
+            Registry registry = LocateRegistry.getRegistry();
+            gesTresEnLinea = (InGestor) registry.lookup("ServerTresEnLinea"); 
+            InTresEnLinea obj=this;
+            System.out.println(obj.toString());
+            gesTresEnLinea.suscribir(obj);
             int  j;
             System.out.println("Sucrito: " + gesTresEnLinea.getNumsuscritos());
             j = gesTresEnLinea.jugar(-1, -1);
-            }catch(Exception e){
-                
-            }
+//            }catch(Exception e){
+//                System.out.println(e);
+//            }
     
         }
 
      
-   public static void main(String[]args) throws RemoteException {
+   public static void main(String[]args) throws RemoteException, NotBoundException {
        
        
        new TresEnLineaMain();

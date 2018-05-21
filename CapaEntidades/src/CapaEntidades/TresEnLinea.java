@@ -10,12 +10,7 @@ import java.io.Serializable;
  */
 public class TresEnLinea implements Serializable {
     
-    public static final String PROP_SAMPLE_PROPERTY = "sampleProperty";
-    
-    private String sampleProperty;
-    
-    private PropertyChangeSupport propertySupport;
-    
+  
     private static int[][] matriz;
         private static TresEnLinea tresEnLinea;
 

@@ -8,18 +8,25 @@ package CapaNegocio;
 import CapaEntidades.TresEnLinea;
 import java.beans.*;
 import java.io.Serializable;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+
 
 /**
  *
  * @author Oscar Fierro <omfierro@espe.edu.ec>
  */
-public class GestorTresEnLinea implements Serializable {
+public class GestorTresEnLinea extends UnicastRemoteObject implements Serializable,Remote {
 
     private static GestorTresEnLinea gesTresEnLinea;
     private static TresEnLinea objTresEnLinea = new TresEnLinea();
     private static ArrayList<InTresEnLinea> obsTresEnLinea;
     private static int jugador;
+
+    public GestorTresEnLinea() throws RemoteException{
+    }
 
     private void NotificaCambio() {
         obsTresEnLinea.forEach((objTL) -> {
@@ -41,7 +48,7 @@ public class GestorTresEnLinea implements Serializable {
     }
 
     //Patron singleton
-    public static GestorTresEnLinea getGestor() {
+    public static GestorTresEnLinea getGestor() throws RemoteException {
         if (gesTresEnLinea == null) {
             gesTresEnLinea = new GestorTresEnLinea();
         }
@@ -124,32 +131,7 @@ public class GestorTresEnLinea implements Serializable {
         return -1;
     }
 
-    public static final String PROP_SAMPLE_PROPERTY = "sampleProperty";
-
-    private String sampleProperty;
-
-    private PropertyChangeSupport propertySupport;
-
-    public GestorTresEnLinea() {
-        propertySupport = new PropertyChangeSupport(this);
-    }
-
-    public String getSampleProperty() {
-        return sampleProperty;
-    }
-
-    public void setSampleProperty(String value) {
-        String oldValue = sampleProperty;
-        sampleProperty = value;
-        propertySupport.firePropertyChange(PROP_SAMPLE_PROPERTY, oldValue, sampleProperty);
-    }
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        propertySupport.addPropertyChangeListener(listener);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        propertySupport.removePropertyChangeListener(listener);
-    }
+ 
+    
 
 }

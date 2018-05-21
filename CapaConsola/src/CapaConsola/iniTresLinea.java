@@ -24,9 +24,9 @@ public class iniTresLinea extends Thread {
               try {
 
        // Getting the registry
-        Registry registry = LocateRegistry.getRegistry(null);
+        Registry registry = LocateRegistry.getRegistry();
         // Looking up the registry for the remote object
-       gesTresEnLinea = (GestorTresEnLinea) registry.lookup("Hello");    
+       gesTresEnLinea = (GestorTresEnLinea) registry.lookup("Server");    
        }catch(Exception e){
            
        }

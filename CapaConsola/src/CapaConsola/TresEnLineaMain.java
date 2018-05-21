@@ -10,14 +10,15 @@ import java.io.Serializable;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import CapaNegocio.*;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
 /**
  *
  * @author Mela
  */
-public class TresEnLineaMain implements Serializable,InTresEnLinea {
+public class TresEnLineaMain extends UnicastRemoteObject implements  Serializable,InTresEnLinea {
 
-    
    GestorTresEnLinea gesTresEnLinea ;
    @Override
     public void Actualiza()
@@ -28,10 +29,11 @@ public class TresEnLineaMain implements Serializable,InTresEnLinea {
 
         }
      
-        public TresEnLineaMain()
+        public TresEnLineaMain() throws RemoteException 
         {
             try{
-            Registry registry = LocateRegistry.getRegistry();
+            Registry registry = LocateRegistry.getRegistry("localhost");
+                System.out.println(registry.toString());
             gesTresEnLinea = (GestorTresEnLinea) registry.lookup("Server");    
             gesTresEnLinea.suscribir(this);
             int  j;
@@ -44,7 +46,7 @@ public class TresEnLineaMain implements Serializable,InTresEnLinea {
         }
 
      
-   public static void main(String[]args){
+   public static void main(String[]args) throws RemoteException {
        
        
        new TresEnLineaMain();

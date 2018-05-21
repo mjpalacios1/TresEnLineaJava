@@ -22,48 +22,7 @@ public class frmViewTresEnLinea extends javax.swing.JFrame {
     public frmViewTresEnLinea() {
         initComponents();
     }
-    public void Actualiza()
-        {
-
-            Thread thLeft = new Thread(new ThreadStart(this.iniTresLinea));
-            thLeft.Start();
-
-        }
-
-        private void iniTresLinea()
-        {
-            gesTresEnLinea = (CapaNegocio.GestorTresEnLinea)Activator.GetObject(typeof(CapaNegocio.GestorTresEnLinea), "tcp://localhost:9946/GRServer");
-
-            dibujaMatriz(gesTresEnLinea.getMatrizTresEnLinea());
-
-            int j;
-
-            j = gesTresEnLinea.esTresEnLinea();
-            if (j == 0)
-            {
-                lblMensaje.ForeColor = Color.Red;
-                lblMensaje.setText("Gana 0");
-            }
-            else if (j == 1)
-            {
-                lblMensaje.ForeColor = Color.Red;
-                lblMensaje.setText( "Gana X");
-            }
-            else if (j == -1)
-            {
-                if (gesTresEnLinea.getJugador() == 1)
-                {
-                   
-                    lblMensaje.setText("Juegan las 0");
-                }
-                else
-                {
-                    lblMensaje.setText("Juegan las X");
-                   
-                }
-            }
-        }
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -229,33 +188,5 @@ public class frmViewTresEnLinea extends javax.swing.JFrame {
     private javax.swing.JLabel lblMensaje;
     private javax.swing.JPanel panel1;
     // End of variables declaration//GEN-END:variables
-    public void dibujaMatriz(int[][] matriz)
-        {
-            Control.CheckForIllegalCrossThreadCalls = false;
-            int cont = 0;
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    if (matriz[i][j] == -1)
-                        panel1.Controls[cont].Text = " ";
-                    else if (matriz[i][j] == 0)
-                        panel1.Controls[cont].Text = "0";
-                    else if (matriz[i][j] == 1)
-                        panel1.Controls[cont].Text = "X"; ;
-                    cont++;
-                }
-
-            }
-
-
-        }
-
-        private void frmViewTresEnLinea_Load(object sender, EventArgs e)
-        {
-            gesTresEnLinea = (CapaNegocio.GestorTresEnLinea)Activator.GetObject(typeof(CapaNegocio.GestorTresEnLinea), "tcp://localhost:9946/GRServer");
-            
-            gesTresEnLinea.suscribir(this);
-
-        }
+   
 }

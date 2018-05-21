@@ -19,9 +19,18 @@ import java.util.Scanner;
  *
  * @author Mela
  */
-public class TresEnLineaMain extends UnicastRemoteObject implements  InTresEnLinea {
+public class TresEnLineaMain extends UnicastRemoteObject implements  InTresEnLinea,Remote {
 
-   InGestor gesTresEnLinea ;
+   public InGestor gesTresEnLinea ;
+
+    public InGestor getGesTresEnLinea() {
+        return gesTresEnLinea;
+    }
+
+    public void setGesTresEnLinea(InGestor gesTresEnLinea) {
+        this.gesTresEnLinea = gesTresEnLinea;
+    }
+   
    @Override
     public void Actualiza()
         {
@@ -36,9 +45,7 @@ public class TresEnLineaMain extends UnicastRemoteObject implements  InTresEnLin
            
             Registry registry = LocateRegistry.getRegistry();
             gesTresEnLinea = (InGestor) registry.lookup("ServerTresEnLinea"); 
-            InTresEnLinea obj=this;
-            System.out.println(obj.toString());
-            gesTresEnLinea.suscribir(obj);
+            gesTresEnLinea.suscribir(this);
             int  j;
             System.out.println("Sucrito: " + gesTresEnLinea.getNumsuscritos());
             j = gesTresEnLinea.jugar(-1, -1);

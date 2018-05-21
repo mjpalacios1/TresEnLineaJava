@@ -12,13 +12,15 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
  *
  * @author Oscar Fierro <omfierro@espe.edu.ec>
  */
-public class GestorTresEnLinea extends UnicastRemoteObject  implements Serializable,InGestor {
+public class GestorTresEnLinea extends UnicastRemoteObject implements Serializable,InGestor {
 
     private static GestorTresEnLinea gesTresEnLinea;
     private static TresEnLinea objTresEnLinea = new TresEnLinea();
@@ -27,17 +29,22 @@ public class GestorTresEnLinea extends UnicastRemoteObject  implements Serializa
 
   
 public GestorTresEnLinea()throws RemoteException {
-    getGestor();
+   
 }
     private void NotificaCambio() {
         obsTresEnLinea.forEach((objTL) -> {
-            objTL.Actualiza();
+            try {
+                objTL.Actualiza();
+            } catch (RemoteException ex) {
+                Logger.getLogger(GestorTresEnLinea.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
 
     public void suscribir(InTresEnLinea obsTresL)  {
         if (obsTresEnLinea == null) {
             obsTresEnLinea = new ArrayList<>();
+       
         }
 
         obsTresEnLinea.add(obsTresL);
@@ -92,7 +99,7 @@ public GestorTresEnLinea()throws RemoteException {
         return objTresEnLinea.getDatos();
     }
 
-    private int esTresLinea(int[][] matriz) {
+    public int esTresLinea(int[][] matriz) {
 
         for (int i = 0; i < 3; i++) {
             //Verifica filas

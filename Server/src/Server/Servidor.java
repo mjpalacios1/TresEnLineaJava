@@ -17,16 +17,16 @@ import java.rmi.server.UnicastRemoteObject;
  *
  * @author Mela
  */
-public class Servidor implements Remote {
+public class Servidor{
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws RemoteException, MalformedURLException{
         GestorTresEnLinea obj = new GestorTresEnLinea();
-        InGestor stub = (InGestor) UnicastRemoteObject.exportObject(obj, 0);
+     
         Registry reg = LocateRegistry.createRegistry(1099);
-        reg.rebind("ServerTresEnLinea", stub);
+        reg.rebind("ServerTresEnLinea", obj);
         System.out.println(reg.toString());
         System.out.println("Servidor ON");
         System.out.println("Atendiendo las peticiones...");

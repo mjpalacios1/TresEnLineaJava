@@ -5,6 +5,7 @@
  */
 package CapaNegocio;
 
+import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -12,8 +13,12 @@ import java.rmi.RemoteException;
  *
  * @author Mela
  */
-public interface InGestor extends Remote{
+public interface InGestor extends Remote,Serializable{
     void suscribir(InTresEnLinea obsTresL) throws RemoteException;
      public int jugar(int x, int y) throws RemoteException;
      public int getNumsuscritos()  throws RemoteException;
+      public int esTresEnLinea()  throws RemoteException;
+       public int[][] getMatrizTresEnLinea() throws RemoteException;
+       public int esTresLinea(int[][] matriz) throws RemoteException;
+         public int getJugador() throws RemoteException;
 }

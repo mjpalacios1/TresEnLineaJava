@@ -6,65 +6,77 @@
 package CapaConsola;
 
 import CapaNegocio.GestorTresEnLinea;
+import CapaNegocio.InGestor;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
 import CapaNegocio.InTresEnLinea;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Mela
  */
 public class iniTresLinea extends Thread {
-    GestorTresEnLinea gesTresEnLinea ;
+    public InGestor gesTresEnLinea ;
     @Override
     
     public void run(){
-        int j;
               try {
-
-       // Getting the registry
-        Registry registry = LocateRegistry.getRegistry();
-        // Looking up the registry for the remote object
-       gesTresEnLinea = (GestorTresEnLinea) registry.lookup("Server");    
-       }catch(Exception e){
+                  int j;
+                  
+                      
+                      // Getting the registry
+                      Registry registry = LocateRegistry.getRegistry();
+                      // Looking up the registry for the remote object
+                      gesTresEnLinea = (InGestor) registry.lookup("ServerTresEnLinea");
+                 
+                  dibujaMatriz(gesTresEnLinea.getMatrizTresEnLinea());
+                  j = gesTresEnLinea.esTresEnLinea();
+                  if (j == 0)
+                  {
+                      
+                      System.out.println("Gana 0");
+                      
+                  }
+                  else if (j == 1)
+                  {
+                      
+                      System.out.println("Gana X");
+                      
+                  }
+                  else if (j == -1)
+                  {
+                      if (gesTresEnLinea.getJugador() == 1)
+                      {
+                          int f, c, x;
+                          Scanner sc=new Scanner(System.in);
+                          System.out.println("Fila: ");
+                          f = Integer.parseInt(sc.next());
+                          System.out.println("Columna: ");
+                          c = Integer.parseInt(sc.next());
+                          
+                          try {
+                              x = gesTresEnLinea.jugar(f, c);
+                          } catch (RemoteException ex) {
+                              Logger.getLogger(iniTresLinea.class.getName()).log(Level.SEVERE, null, ex);
+                          }
+                      }
+                      else
+                      {
+                          System.out.println("Jugando X..");
+                          
+                      }
+                      
+                  }
+                  
+                  
+              }catch(Exception ex){
+            Logger.getLogger(iniTresLinea.class.getName()).log(Level.SEVERE, null, ex);
            
        }
-            dibujaMatriz(gesTresEnLinea.getMatrizTresEnLinea());
-          
-            j = gesTresEnLinea.esTresEnLinea();
-            if (j == 0)
-            {
-                 
-                System.out.println("Gana 0");
- 
-            }
-            else if (j == 1)
-            {
-               
-                System.out.println("Gana X");
- 
-            }
-            else if (j == -1)
-            {
-                if (gesTresEnLinea.getJugador() == 1)
-                {
-                    int f, c, x;
-                    Scanner sc=new Scanner(System.in);
-                    System.out.println("Fila: ");
-                    f = Integer.parseInt(sc.next());
-                    System.out.println("Columna: ");
-                    c = Integer.parseInt(sc.next());
-
-                    x = gesTresEnLinea.jugar(f, c);
-                }
-                else
-                {
-                    System.out.println("Jugando X..");
-                    
-                }
-
-            }
 
             
     }

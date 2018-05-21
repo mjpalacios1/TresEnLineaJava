@@ -5,13 +5,15 @@
  */
 package CapaNegocio;
 
+import java.io.Serializable;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 /**
  *
  * @author Oscar Fierro <omfierro@espe.edu.ec>
  */
-public interface InTresEnLinea {
-    void Actualiza();
+public interface InTresEnLinea extends Serializable,Remote{
+    void Actualiza() throws RemoteException;
     
 }

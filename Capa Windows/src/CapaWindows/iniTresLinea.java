@@ -9,6 +9,7 @@ import CapaNegocio.GestorTresEnLinea;
 import java.rmi.activation.Activator;
 import CapaNegocio.*;
 import java.awt.Color;
+import java.util.ResourceBundle.Control;
 /**
  *
  * @author Labs-DECC
@@ -51,14 +52,14 @@ public class iniTresLinea extends Thread{
     }
     private void dibujaMatriz(int[][] matriz)
         {
-            Control.CheckForIllegalCrossThreadCalls = false;
+            //Control.CheckForIllegalCrossThreadCalls = false;
             int cont = 0;
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
                 {
                     if (matriz[i][j] == -1)
-                       obj. panel1.Controls[cont].Text = " ";
+                       obj.panel1.Controls[cont].Text = " ";
                     else if (matriz[i][j] == 0)
                        obj.panel1.Controls[cont].Text = "0";
                     else if (matriz[i][j] == 1)

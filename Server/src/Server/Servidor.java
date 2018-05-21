@@ -23,11 +23,9 @@ public class Servidor{
      * @param args the command line arguments
      */
     public static void main(String[] args) throws RemoteException, MalformedURLException{
-        GestorTresEnLinea obj = new GestorTresEnLinea();
-     
+
         Registry reg = LocateRegistry.createRegistry(1099);
-        reg.rebind("ServerTresEnLinea", obj);
-        System.out.println(reg.toString());
+        reg.rebind("ServerTresEnLinea", GestorTresEnLinea.getGestor());
         System.out.println("Servidor ON");
         System.out.println("Atendiendo las peticiones...");
         System.out.println("Pulse Enter para salir...");

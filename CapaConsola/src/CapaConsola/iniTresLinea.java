@@ -32,9 +32,9 @@ public class iniTresLinea extends Thread {
                       Registry registry = LocateRegistry.getRegistry();
                       // Looking up the registry for the remote object
                       gesTresEnLinea = (InGestor) registry.lookup("ServerTresEnLinea");
-                 
                   dibujaMatriz(gesTresEnLinea.getMatrizTresEnLinea());
                   j = gesTresEnLinea.esTresEnLinea();
+                  System.out.println(gesTresEnLinea.getJugador()+"jugador");
                   if (j == 0)
                   {
                       
@@ -49,6 +49,7 @@ public class iniTresLinea extends Thread {
                   }
                   else if (j == -1)
                   {
+                      System.out.println(gesTresEnLinea.getJugador());
                       if (gesTresEnLinea.getJugador() == 1)
                       {
                           int f, c, x;

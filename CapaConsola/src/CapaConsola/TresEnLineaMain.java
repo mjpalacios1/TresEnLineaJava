@@ -49,6 +49,7 @@ public class TresEnLineaMain extends UnicastRemoteObject implements  InTresEnLin
             int  j;
             System.out.println("Sucrito: " + gesTresEnLinea.getNumsuscritos());
             j = gesTresEnLinea.jugar(-1, -1);
+         
 //            }catch(Exception e){
 //                System.out.println(e);
 //            }

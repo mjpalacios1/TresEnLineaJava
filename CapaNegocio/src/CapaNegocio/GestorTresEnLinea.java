@@ -28,9 +28,9 @@ public class GestorTresEnLinea extends UnicastRemoteObject implements Serializab
     private static int jugador;
 
   
-public GestorTresEnLinea()throws RemoteException {
-   
-}
+    private GestorTresEnLinea()throws RemoteException {
+
+    }
     private void NotificaCambio() {
         obsTresEnLinea.forEach((objTL) -> {
             try {
@@ -56,7 +56,7 @@ public GestorTresEnLinea()throws RemoteException {
     }
 
     //Patron singleton
-    public static GestorTresEnLinea getGestor() throws RemoteException {
+    public  static GestorTresEnLinea getGestor() throws RemoteException {
         if (gesTresEnLinea == null) {
             gesTresEnLinea = new GestorTresEnLinea();
         }
@@ -69,8 +69,8 @@ public GestorTresEnLinea()throws RemoteException {
     }
 
     public int jugar(int x, int y) {
-
         if (objTresEnLinea.asignaDatos(x, y, jugador)) {
+           
             if (jugador == 1) {
                 jugador = 0;
             } else {

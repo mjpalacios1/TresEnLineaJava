@@ -28,7 +28,7 @@ public class GestorTresEnLinea extends UnicastRemoteObject implements Serializab
     private static int jugador;
 
   
-    private GestorTresEnLinea()throws RemoteException {
+    public GestorTresEnLinea()throws RemoteException {
 
     }
     private void NotificaCambio() {

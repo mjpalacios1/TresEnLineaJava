@@ -5,21 +5,61 @@
  */
 package CapaWindows;
 
-import CapaNegocio.GestorTresEnLinea;
+import CapaNegocio.*;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JLabel;
 
 /**
  *
  * @author Labs-DECC
  */
 public class frmTresEnLinea extends javax.swing.JFrame {
-
+    public ArrayList <JLabel> labels=new  ArrayList <JLabel>();
+    
     /**
      * Creates new form frmTresEnLinea
      */
-     GestorTresEnLinea gesTresEnLinea;
-    public frmTresEnLinea() {
+     InGestor gesTresEnLinea;
+    public frmTresEnLinea( InGestor gesTresEnLinea) {
         initComponents();
+        this.gesTresEnLinea=gesTresEnLinea;
+        labels.add(lbl00);
+        labels.add(lbl01);
+        labels.add(lbl02);
+        labels.add(lbl10);
+        labels.add(lbl11);
+        labels.add(lbl12);
+        labels.add(lbl20);
+        labels.add(lbl21);
+        labels.add(lbl22);
+        
+        
     }
+
+     public frmTresEnLinea( ) {
+        try {
+            initComponents();
+            this.gesTresEnLinea=new GestorTresEnLinea();
+            labels.add(lbl00);
+            labels.add(lbl01);
+            labels.add(lbl02);
+            labels.add(lbl10);
+            labels.add(lbl11);
+            labels.add(lbl12);
+            labels.add(lbl20);
+            labels.add(lbl21);
+            labels.add(lbl22);
+        } catch (RemoteException ex) {
+            Logger.getLogger(frmTresEnLinea.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+
+    
     
        
 
@@ -181,11 +221,14 @@ public class frmTresEnLinea extends javax.swing.JFrame {
 
     private void cmdAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdAceptarActionPerformed
       
+        try {
             int f, c, j;
             f = Integer.parseInt(txtFila.getText());
             c = Integer.parseInt(txtColumna.getText());
-
             j = gesTresEnLinea.jugar(f, c);
+        } catch (RemoteException ex) {
+            Logger.getLogger(frmTresEnLinea.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_cmdAceptarActionPerformed
 
     /**
@@ -229,13 +272,13 @@ public class frmTresEnLinea extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     public javax.swing.JLabel lbl00;
     public javax.swing.JLabel lbl01;
-    private javax.swing.JLabel lbl02;
-    private javax.swing.JLabel lbl10;
-    private javax.swing.JLabel lbl11;
-    private javax.swing.JLabel lbl12;
-    private javax.swing.JLabel lbl20;
-    private javax.swing.JLabel lbl21;
-    private javax.swing.JLabel lbl22;
+    public javax.swing.JLabel lbl02;
+    public javax.swing.JLabel lbl10;
+    public javax.swing.JLabel lbl11;
+    public javax.swing.JLabel lbl12;
+    public javax.swing.JLabel lbl20;
+    public javax.swing.JLabel lbl21;
+    public javax.swing.JLabel lbl22;
     public javax.swing.JLabel lblMensaje;
     public javax.swing.JPanel panel1;
     private javax.swing.JTextField txtColumna;

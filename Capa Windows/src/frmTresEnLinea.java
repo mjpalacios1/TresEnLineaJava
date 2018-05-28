@@ -5,65 +5,64 @@
  */
 package CapaWindows;
 
-import CapaNegocio.*;
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JLabel;
+import CapaNegocio.GestorTresEnLinea;
 
 /**
  *
  * @author Labs-DECC
  */
 public class frmTresEnLinea extends javax.swing.JFrame {
-    public ArrayList <JLabel> labels=new  ArrayList <JLabel>();
-    
+
     /**
      * Creates new form frmTresEnLinea
      */
-     InGestor gesTresEnLinea;
-    public frmTresEnLinea( InGestor gesTresEnLinea) {
+     GestorTresEnLinea gesTresEnLinea;
+    public frmTresEnLinea() {
         initComponents();
-        this.gesTresEnLinea=gesTresEnLinea;
-        labels.add(lbl00);
-        labels.add(lbl01);
-        labels.add(lbl02);
-        labels.add(lbl10);
-        labels.add(lbl11);
-        labels.add(lbl12);
-        labels.add(lbl20);
-        labels.add(lbl21);
-        labels.add(lbl22);
-        
-        
     }
+    
+        public void Actualiza()
+        {
+            
+            Thread thLeft = new Thread(new ThreadStart(this.iniTresLinea));
+            thLeft.Start();
 
-     public frmTresEnLinea( ) {
-        try {
-            initComponents();
-            this.gesTresEnLinea=new GestorTresEnLinea();
-            labels.add(lbl00);
-            labels.add(lbl01);
-            labels.add(lbl02);
-            labels.add(lbl10);
-            labels.add(lbl11);
-            labels.add(lbl12);
-            labels.add(lbl20);
-            labels.add(lbl21);
-            labels.add(lbl22);
-        } catch (RemoteException ex) {
-            Logger.getLogger(frmTresEnLinea.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-    }
 
-    
-    
-       
+        private void iniTresLinea()
+        {
+            gesTresEnLinea = (CapaNegocio.GestorTresEnLinea)Activator.GetObject(typeof(CapaNegocio.GestorTresEnLinea), "tcp://localhost:9946/GRServer");
 
-       
+            dibujaMatriz(gesTresEnLinea.getMatrizTresEnLinea() );
+
+             int j;
+            
+            j = gesTresEnLinea.esTresEnLinea();
+            if (j == 0)
+            {
+                lblMensaje.ForeColor = Color.Red;
+                lblMensaje.Text = "Gana 0";
+            }
+            else if (j == 1)
+            {
+                lblMensaje.ForeColor = Color.Red;
+                lblMensaje.Text = "Gana X";
+            }
+            else if (j == -1)
+            {
+                if (gesTresEnLinea.getJugador() == 1)
+                {
+                    cmdAceptar.Enabled = false;
+                    lblMensaje.Text = "Juegan las 0";
+                }
+                else
+                {
+                    lblMensaje.Text = "Ingrese la fila y columna";
+                    cmdAceptar.Enabled = true;  
+                }
+            }
+        }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,7 +73,7 @@ public class frmTresEnLinea extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panel1 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         lbl00 = new javax.swing.JLabel();
         lbl01 = new javax.swing.JLabel();
         lbl02 = new javax.swing.JLabel();
@@ -84,7 +83,7 @@ public class frmTresEnLinea extends javax.swing.JFrame {
         lbl20 = new javax.swing.JLabel();
         lbl21 = new javax.swing.JLabel();
         lbl22 = new javax.swing.JLabel();
-        lblMensaje = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         txtFila = new javax.swing.JTextField();
@@ -93,7 +92,7 @@ public class frmTresEnLinea extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lbl00.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -113,26 +112,26 @@ public class frmTresEnLinea extends javax.swing.JFrame {
 
         lbl22.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
-        panel1.setLayout(panel1Layout);
-        panel1Layout.setHorizontalGroup(
-            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(36, Short.MAX_VALUE)
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lbl20, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbl21, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbl22, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lbl10, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbl11, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbl12, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lbl00, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbl01, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -140,39 +139,34 @@ public class frmTresEnLinea extends javax.swing.JFrame {
                         .addComponent(lbl02, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(34, 34, 34))
         );
-        panel1Layout.setVerticalGroup(
-            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(27, Short.MAX_VALUE)
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl00, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl01, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl02, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl10, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl11, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl12, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl20, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl21, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl22, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24))
         );
 
-        lblMensaje.setText("Bienvenidos");
+        jLabel10.setText("Bienvenidos");
 
         jLabel11.setText("Fila:");
 
         jLabel12.setText("Columna:");
 
         cmdAceptar.setText("Aceptar");
-        cmdAceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdAceptarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -183,8 +177,8 @@ public class frmTresEnLinea extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblMensaje)
-                            .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -202,9 +196,9 @@ public class frmTresEnLinea extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lblMensaje)
+                .addComponent(jLabel10)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -218,18 +212,6 @@ public class frmTresEnLinea extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void cmdAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdAceptarActionPerformed
-      
-        try {
-            int f, c, j;
-            f = Integer.parseInt(txtFila.getText());
-            c = Integer.parseInt(txtColumna.getText());
-            j = gesTresEnLinea.jugar(f, c);
-        } catch (RemoteException ex) {
-            Logger.getLogger(frmTresEnLinea.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_cmdAceptarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -268,19 +250,19 @@ public class frmTresEnLinea extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cmdAceptar;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    public javax.swing.JLabel lbl00;
-    public javax.swing.JLabel lbl01;
-    public javax.swing.JLabel lbl02;
-    public javax.swing.JLabel lbl10;
-    public javax.swing.JLabel lbl11;
-    public javax.swing.JLabel lbl12;
-    public javax.swing.JLabel lbl20;
-    public javax.swing.JLabel lbl21;
-    public javax.swing.JLabel lbl22;
-    public javax.swing.JLabel lblMensaje;
-    public javax.swing.JPanel panel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbl00;
+    private javax.swing.JLabel lbl01;
+    private javax.swing.JLabel lbl02;
+    private javax.swing.JLabel lbl10;
+    private javax.swing.JLabel lbl11;
+    private javax.swing.JLabel lbl12;
+    private javax.swing.JLabel lbl20;
+    private javax.swing.JLabel lbl21;
+    private javax.swing.JLabel lbl22;
     private javax.swing.JTextField txtColumna;
     private javax.swing.JTextField txtFila;
     // End of variables declaration//GEN-END:variables

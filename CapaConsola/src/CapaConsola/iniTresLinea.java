@@ -34,7 +34,7 @@ public class iniTresLinea extends Thread {
                       gesTresEnLinea = (InGestor) registry.lookup("ServerTresEnLinea");
                   dibujaMatriz(gesTresEnLinea.getMatrizTresEnLinea());
                   j = gesTresEnLinea.esTresEnLinea();
-                  System.out.println(gesTresEnLinea.getJugador()+"jugador");
+                 // System.out.println(gesTresEnLinea.getJugador()+"jugador");
                   if (j == 0)
                   {
                       

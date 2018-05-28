@@ -75,12 +75,13 @@ public class iniTresLinea extends Thread{
     }
     private void dibujaMatriz(int[][] matriz)
         {
-            //Control.CheckForIllegalCrossThreadCalls = false;
+            
             int cont = 0;
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
                 {
+                    
                     if (matriz[i][j] == -1)
                        obj.labels.get(cont).setText(" ");
                     else if (matriz[i][j] == 0)
